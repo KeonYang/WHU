@@ -1,0 +1,24 @@
+Sub line()
+'
+' line Macro
+'
+
+'
+
+For i = 23 To 24
+
+
+    SolverDelete CellRef:=Range("$B$23:$F$23"), Relation:=1, FormulaText:="1"""
+    SolverDelete CellRef:=Range("$B$23:$F$23"), Relation:=3, FormulaText:="0"
+    SolverDelete CellRef:=Range("$G$23"), Relation:=2, FormulaText:="1"""
+    SolverDelete CellRef:=Range("$J$23"), Relation:=2, FormulaText:="$H$23"
+    SolverAdd CellRef:="$B$23:$F$23", Relation:=1, FormulaText:="1"
+    SolverAdd CellRef:="$B$23:$F$23", Relation:=3, FormulaText:="0"
+    SolverAdd CellRef:="$G$23", Relation:=2, FormulaText:="1"
+    SolverAdd CellRef:="$J$23", Relation:=2, FormulaText:="$H$23"
+    SolverOk SetCell:="$I$23", MaxMinVal:=2, ValueOf:=0, ByChange:="$B$23:$F$23", _
+        Engine:=1, EngineDesc:="GRG Nonlinear"
+    SolverSolve
+Next
+
+End Sub
