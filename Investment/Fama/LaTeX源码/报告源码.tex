@@ -1,0 +1,1526 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+    \usepackage{fontspec, xunicode, xltxtra}
+
+    \setmainfont{Microsoft YaHei}
+
+    \usepackage{ctex}   
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{\heiti \zihao{1}投资学五因子案例}
+    \author{\heiti \zihao{5}林新凯 2016312010173\\ \heiti \zihao{5}吕自立 2016302010145\\ \heiti \zihao{5}杨宸宇 2016301550186}
+    \date{}
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    \begin{center}
+        \heiti \zihao{3}摘要
+    \end{center}
+    \par \indent
+    \heiti 本案例研究基于 Fama \& French 1993年在 The Journal of Finance 上发表的论文“Common Risk Factors in the Returns on Stocks and Bonds”，数据来源于万德数据库，调仓频率为月度，检验时间为2018年1月1日至2017年12月31日。其中我们主要考虑的因子包含了原始的Fama三因子，即市场风险因子，市值风险因子SMB，账面市值比风险因子HML在内，度量波动的动量因子MOM，盈利水平风险因子RMW与投资水平风险因子CMA，整体发现因子较为有效，除了动量因子表现稍差意外其余因子都十分显著。\\
+
+
+
+
+
+
+
+    \begin{center}
+        \heiti \zihao{3}概述
+    \end{center}
+    \par \indent
+    \heiti 本案例研究基于 Fama \& French 1993年在 The Journal of Finance 上发表的论文“Common Risk Factors in the Returns on Stocks and Bonds”，参考Fama的五因子模型以及Carhart的四因子模型，数据来源于万德数据库，调仓频率为月度，检验时间为2018年1月1日至2017年12月31日。其中我们主要考虑的因子包含了原始的Fama三因子，即市场风险因子，市值风险因子SMB，账面市值比风险因子HML在内，度量波动的动量因子MOM，盈利水平风险因子RMW与投资水平风险因子CMA。经过研究，我们发现HML和SMB、ROE和SMB等因子间的相关性在研究期间比较高，从整体上来看，调整$R^2$较为理想，平均可以达到94.53\%，除去动量因子意外其他因子的t检验均显著，特别是Market和SMB因子，但在不同的25个组合中$\beta$和SMB相差较大。\\
+
+
+    \begin{center}
+        \heiti \zihao{3}研究方法
+    \end{center}
+    
+    \noindent \heiti {取样本期（2008-2017）的数据按照如下公式进行回归：}
+    $$E_( r_i)-r_f=a_i+b_i [E(r_m)-r_f]+s_i E[SMB]+h_i E[HML]+d_i E[RMW]+c_i E[CMA]+m_i E[MOM]$$
+    \heiti{其中，解释变量：}\\
+    \par \indent
+    \heiti{$[E(r_m)-r_f]$}：市场指数（万德全A）相对无风险利率（SHIBOR隔夜利率）的超额收益\\
+    \par \indent
+    \heiti{$[SMB]$}：每个月按照总市值排列股票池（全部A股  ），依据上下四分位划分大小，即总市值最大的25\%的股票作为大市值组合，总市值最小的25\%的股票作为小市值组合，用小市值组合该月的个股收益率平均值减去大市值组合该月的个股收益率平均值，再减去无风险利率得到当月的SMB值，并按照这个方法计算样本期内每个月的所有SMB值.\\
+    \par \indent
+    \heiti{$[HML]$}：计算方式与[SMB]相同，只是将总市值换为市净率 ，用当月市净率最低（即账面市值比BM值最高）的投资组合的个股月度平均收益率减去当月市净率最高的投资组合的个股月度平均收益率，得到当月的HML值，再减去无风险利率得到HML的超额收益，即当月的HML值，并同样按照这个方法计算样本期内每个月的所有HML值.\\
+    \par \indent
+    \heiti{$[RMW]$}：计算方式与[SMB]相同，只是将总市值换为净资产收益率 ，用当月净资产收益率最低的投资组合的个股月度平均收益率减去当月净资产收益率最高的投资组合的个股月度平均收益率，得到当月的RMW值，再减去无风险利率得到RMW的超额收益，即当月的RMW值，并同样按照这个方法计算样本期内每个月的所有RMW值.\\
+    \par \indent
+    \heiti{$[CMA]$}：计算方式与[SMB]相同，只是将总市值换为资产增长率 ，用当月资产增长率最低的投资组合的个股月度平均收益率减去当月资产增长率最高的投资组合的个股月度平均收益率，得到当月的CMA值，再减去无风险利率得到CMA的超额收益，即当月的CMA值，并同样按照这个方法计算样本期内每个月的所有CMA值.\\
+    \par \indent
+    \heiti{$[MOM]$}：首先对前11期月度收益率进行排序得到前30\%和后30\%股票，计算两类的月度收益率差值，即得当月的MOM值，并同样按照这个方法计算样本期内每个月的所有MOM值.\\
+    \heiti{被解释变量}：\\
+    \par \indent
+    \heiti{$E_(r_i )- r_f$}：依据市值、账面价值/市值两个指标，按照五分位划分 得到的5个大、中、小投资组合，再排列组合成25个交集，得到25个投资组合，计算他们的超额收益作为被解释变量.\\
+
+
+    \begin{center}
+        \heiti \zihao{3}数据
+    \end{center}
+    \par \indent
+    \heiti{样本期}：2008-01-01 至 2017-12-31\\
+    \par \indent
+    \heiti{股票池}：全部A股\\
+    \par \indent
+    \heiti{剔除所有ST股票当月数据}\\
+    \par \indent
+    \heiti{剔除所有非正常交易股票当月数据}\\
+    \par \indent
+    \heiti{投资组合调仓频率}：月度（每月末）\\
+    \par \indent
+    \heiti{市场指数}：用万德全A指数代替\\
+    \par \indent
+    \heiti{无风险利率}：用SHIBOR隔夜拆借利率的月度平均值代替\\
+    \par \indent
+    \heiti{总市值（ME)}：用公司的股权公平市场价值 代替\\
+    \par \indent
+    \heiti{账面市值比（BM）}：用市净率 代替\\
+    \par \indent
+    \heiti{账面价值（BE）}：用最新报告期资产负债表股东权益 代替\\
+    \par \indent
+    \heiti{净资产收益率}：用万德的月度ROE 代替\\
+    \par \indent
+    \heiti{资产增长率}：用万德的总资产增长率（相较年初）代替
+
+
+
+    \begin{center}
+        \heiti \zihao{3}报告内容
+    \end{center}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{} Change the file path}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k}{try}\PY{p}{:}
+        	\PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{..}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{OneDrive}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{工作}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{学习}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{第五学期}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{投资学'}\PY{p}{)}\PY{p}{)}
+        	\PY{n+nb}{print}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{k}{except}\PY{p}{:}
+        	\PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{as} \PY{n+nn}{ticker}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{font.size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{11}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}
+             \PY{n+nb}{open}\PY{p}{(}
+                 \PY{n}{path} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{FamaFrench.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{encoding} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}
+             \PY{p}{)}\PY{p}{,} 
+             \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{p}{)}
+         \PY{c+c1}{\PYZsh{} data.index = pd.to\PYZus{}datetime(data.index, format = \PYZsq{}\PYZpc{}b\PYZhy{}\PYZpc{}y\PYZsq{}).strftime(\PYZsq{}\PYZpc{}Y\PYZhy{}\PYZpc{}m\PYZsq{})}
+\end{Verbatim}
+
+
+    \section{收益率}\label{ux6536ux76caux7387}
+
+可以看到，动量因子的收益率远高于其它因子，尤其是在2015年中。其余因子的收益率表现相差不大，均值都低于0。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{MultipleLocator}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{MultipleLocator}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{70}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return(}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return of Factors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} Text(0.5,1,'Return of Factors')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}            Shibor      Market         SMB         HML         ROE         CMA  \textbackslash{}
+         count  120.000000  120.000000  120.000000  120.000000  120.000000  120.000000   
+         mean     2.391529   -1.855738   -3.077592   -4.464530   -2.133120   -0.963855   
+         std      0.889648    8.989121    5.958622    4.553039    2.819122    3.803802   
+         min      0.803582  -29.535931  -36.079260  -23.947787  -16.207890  -14.895867   
+         25\%      1.866313   -6.722316   -6.071562   -6.560288   -3.512013   -2.847319   
+         50\%      2.413980   -1.355685   -2.925407   -4.442765   -1.914440   -1.000553   
+         75\%      2.806922    2.844453    0.813304   -1.964928   -0.589128    0.741648   
+         max      6.468176   17.584159    8.897063   17.213223   14.100332   17.898765   
+         
+                       MOM      ME0BP0      ME0BP1      ME0BP2     {\ldots}          ME3BP0  \textbackslash{}
+         count  120.000000  120.000000  120.000000  120.000000     {\ldots}      120.000000   
+         mean    19.761993    1.664841    1.117263    0.442514     {\ldots}        3.702431   
+         std      8.325334   11.050989   11.104426   10.730139     {\ldots}       11.721207   
+         min     10.611562  -26.104895  -31.835864  -33.176358     {\ldots}      -26.150575   
+         25\%     14.612304   -5.393821   -5.205359   -5.765252     {\ldots}       -3.062910   
+         50\%     17.552181    2.758905    2.282874    1.378960     {\ldots}        3.345745   
+         75\%     22.609008    8.841230    6.832669    6.706652     {\ldots}        9.730519   
+         max     77.189281   31.084765   31.253123   25.181478     {\ldots}       63.250741   
+         
+                    ME3BP1      ME3BP2      ME3BP3      ME3BP4      ME4BP0      ME4BP1  \textbackslash{}
+         count  120.000000  120.000000  120.000000  120.000000  120.000000  120.000000   
+         mean     2.362642    1.780316    1.294371    0.762216    4.320273    1.809436   
+         std     10.368887   10.244759   10.125552    9.594999   11.353038    9.085804   
+         min    -26.386979  -29.065758  -29.133660  -26.452483  -21.352238  -23.547693   
+         25\%     -3.097955   -3.228491   -3.978126   -4.311305   -1.533493   -3.284972   
+         50\%      2.389918    2.167422    1.548886    0.767332    4.003287    2.385493   
+         75\%      7.411839    7.401030    6.484346    5.833401    8.323933    6.311672   
+         max     38.905684   31.259587   24.768550   22.834147   62.828819   25.823137   
+         
+                    ME4BP2      ME4BP3      ME4BP4  
+         count  120.000000  120.000000  120.000000  
+         mean     1.265192    1.735443    1.100763  
+         std      9.230414    8.721200    9.092975  
+         min    -25.639417  -22.475910  -26.939990  
+         25\%     -2.977532   -2.524531   -3.831161  
+         50\%      2.117511    2.054107    1.382359  
+         75\%      5.552510    6.588335    5.345399  
+         max     21.750587   22.480232   31.554630  
+         
+         [8 rows x 32 columns]
+\end{Verbatim}
+            
+    \section{统计报告}\label{ux7edfux8ba1ux62a5ux544a}
+
+    \subsection{因子间相关性}\label{ux56e0ux5b50ux95f4ux76f8ux5173ux6027}
+
+因子间的相关性比较大，这使得模型可能出现过拟合。其中HML和SMB、ROE和SMB等因子间的相关性特别高。如图为SMB和HML的图例。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{factors} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+         \PY{n}{correlation} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{n}{factors}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{factors}\PY{p}{)}
+         \PY{k}{for} \PY{n}{factor\PYZus{}x} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+             \PY{k}{for} \PY{n}{factor\PYZus{}y} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+                 \PY{n}{correlation}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{factor\PYZus{}x}\PY{p}{,} \PY{n}{factor\PYZus{}y}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}
+                     \PY{n}{data}\PY{p}{[}\PY{n}{factor\PYZus{}x}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{factor\PYZus{}y}\PY{p}{]}
+                 \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{correlation}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}            Market        SMB        HML       ROE        CMA        MOM
+         Market          1   0.209565 -0.0927207   0.14921  0.0843781   0.292963
+         SMB      0.209565          1  -0.634243  0.445343   0.101804  0.0489041
+         HML    -0.0927207  -0.634243          1 -0.554817  -0.230356  -0.298643
+         ROE       0.14921   0.445343  -0.554817         1   0.381226   0.312093
+         CMA     0.0843781   0.101804  -0.230356  0.381226          1   0.325905
+         MOM      0.292963  0.0489041  -0.298643  0.312093   0.325905          1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <seaborn.axisgrid.FacetGrid at 0x1848974aa20>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{因子参数}\label{ux56e0ux5b50ux53c2ux6570}
+
+在25个分组的被解释变量中，因子的系数值相差不大，模型对不同风格的投资组合的解释性比较强。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{for} \PY{n}{factor} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+             \PY{n}{parameters} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+                 \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                 \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+             \PY{p}{)}
+             \PY{n}{parameters}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Parameters of }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{factor}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                     \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{parameters}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{factor}\PY{p}{]}
+             \PY{n}{display}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                           BP0       BP1       BP2       BP3       BP4
+Parameters of Market                                                  
+ME0                   0.973124  0.983065  0.951422  0.994599   0.97529
+ME1                    1.00197  0.955012  0.989937  0.991315  0.960902
+ME2                   0.937634  0.985608  0.996106  0.965257   1.01143
+ME3                   0.961281  0.955536  0.994559   1.02404  0.977843
+ME4                    1.03506  0.989141   1.02331  0.934456  0.989226
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                        BP0       BP1       BP2       BP3       BP4
+Parameters of SMB                                                  
+ME0                0.688744  0.714717  0.770626  0.700231  0.699419
+ME1                0.551344   0.61614  0.658785  0.594067  0.616434
+ME2                 0.46613  0.435887   0.45953  0.529243  0.504404
+ME3                0.330681  0.341306  0.361262   0.32556  0.288235
+ME4               -0.668081 -0.252607 -0.223159 -0.296529 -0.299492
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                        BP0       BP1       BP2        BP3          BP4
+Parameters of HML                                                      
+ME0                -0.26278 -0.276935 -0.162308  -0.125571   -0.0648696
+ME1               -0.343722 -0.275033 -0.201705 -0.0894505   -0.0357298
+ME2               -0.359325 -0.330413 -0.201201  -0.111165   -0.0188457
+ME3               -0.464203 -0.343909 -0.183689  -0.159066  0.000528283
+ME4                -1.48505 -0.201939 -0.103954 -0.0120891     0.311209
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                        BP0        BP1        BP2        BP3        BP4
+Parameters of ROE                                                      
+ME0               -0.285129  -0.225641  -0.293962  -0.214524  -0.286509
+ME1               -0.126359  -0.133787  -0.246443   -0.26342  -0.273881
+ME2                 0.27079  0.0149832 -0.0506243  -0.164069  -0.180784
+ME3                0.293409  0.0271374  0.0218246 -0.0803569 -0.0717324
+ME4               -0.166685  -0.361995  -0.271425 -0.0192589  -0.221915
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                          BP0        BP1        BP2       BP3       BP4
+Parameters of CMA                                                      
+ME0                0.00758401  -0.117193  -0.110249 -0.126299 -0.211194
+ME1                  0.158363  -0.138066 -0.0895266 -0.114957 -0.212069
+ME2                  0.213959  -0.123631  -0.145988 -0.226035 -0.222074
+ME3                 0.0104104 -0.0299374  -0.186399 -0.155059 -0.136125
+ME4                 -0.420353  0.0984175  0.0822943 -0.139896 -0.123009
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                         BP0        BP1        BP2        BP3          BP4
+Parameters of MOM                                                         
+ME0                0.0255467  0.0502839  0.0158153 -0.0395347   -0.0356836
+ME1                 0.120557  0.0670917  0.0353972  0.0162832  0.000880258
+ME2                 0.260102   0.104457   0.066073  0.0713211    0.0171894
+ME3                 0.281403   0.117339   0.078533  0.0117596    0.0509579
+ME4                 0.105291  0.0407669 -0.0211754   0.103513    0.0329027
+    \end{verbatim}
+
+    
+    \subsection{因子 t 值}\label{ux56e0ux5b50-t-ux503c}
+
+因子的 t
+值指出其统计显著性。大部分的因子都至少在部分投资组合上展现出显著性。尤其是
+Market 和 SMB 因子。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k}{for} \PY{n}{factor} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+             \PY{n}{tvalues} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+                 \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                 \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+             \PY{p}{)}
+             \PY{n}{tvalues}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t values of }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{factor}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                     \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{tvalues}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{tvalues}\PY{p}{[}\PY{n}{factor}\PY{p}{]}
+             \PY{n}{display}\PY{p}{(}\PY{n}{tvalues}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                        BP0      BP1      BP2      BP3      BP4
+t values of Market                                             
+ME0                 29.8646  44.6171  42.2722  44.1569    41.61
+ME1                 31.9636  41.7388  45.8218  42.5176  44.7146
+ME2                  22.572  34.1663  36.8254  40.2031    46.67
+ME3                  26.528  33.9254  40.1527  42.5493  39.7577
+ME4                 21.9876  38.0984  39.3933   39.147  58.2079
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                     BP0      BP1      BP2      BP3      BP4
+t values of SMB                                             
+ME0               10.939  16.7875  17.7198  16.0888  15.4431
+ME1              9.10245  13.9362  15.7812  13.1864  14.8453
+ME2              5.80734  7.81989  8.79203  11.4079  12.0451
+ME3              4.72276  6.27126  7.54812  7.00067    6.065
+ME4              -7.3447 -5.03531 -4.44596 -6.42893 -9.12021
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                     BP0      BP1      BP2       BP3         BP4
+t values of HML                                                 
+ME0             -3.00392  -4.6817 -2.68613  -2.07656    -1.03089
+ME1              -4.0843 -4.47736 -3.47767  -1.42905   -0.619308
+ME2             -3.22204 -4.26636 -2.77063  -1.72461   -0.323905
+ME3             -4.77165 -4.54808 -2.76232  -2.46183  0.00800064
+ME4             -11.7506 -2.89717 -1.49062 -0.188642     6.82094
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                      BP0       BP1       BP2       BP3       BP4
+t values of ROE                                                  
+ME0              -2.29255  -2.68303  -3.42184  -2.49525   -3.2025
+ME1              -1.05608  -1.53191  -2.98861  -2.96002  -3.33903
+ME2               1.70788  0.136077 -0.490331  -1.79032  -2.18549
+ME3               2.12136  0.252426  0.230844 -0.874756 -0.764109
+ME4             -0.927675  -3.65291   -2.7375 -0.211378  -3.42106
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                      BP0       BP1      BP2      BP3      BP4
+t values of CMA                                               
+ME0               0.09579  -2.18905 -2.01599 -2.30772 -3.70833
+ME1               2.07917  -2.48342 -1.70549  -2.0292 -4.06144
+ME2               2.11983  -1.76381 -2.22123 -3.87459 -4.21726
+ME3              0.118237 -0.437446 -3.09714 -2.65158 -2.27784
+ME4              -3.67501    1.5601  1.30383   -2.412 -2.97891
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                     BP0      BP1       BP2       BP3        BP4
+t values of MOM                                                 
+ME0              0.66749  1.94298  0.598244  -1.49434   -1.29614
+ME1              3.27428  2.49643   1.39494  0.594588  0.0348739
+ME2              5.33091  3.08284   2.07963   2.52904   0.675277
+ME3              6.61154  3.54683   2.69934  0.415997    1.76394
+ME4              1.90424  1.33683 -0.694017   3.69194    1.64831
+    \end{verbatim}
+
+    
+    \subsection{\texorpdfstring{因子的\(R^2\)}{因子的R\^{}2}}\label{ux56e0ux5b50ux7684r2}
+
+\(R^2\)
+统计模型对数据的解释性，可以看到模型的解释性良好，在不同被解释变量中的平均值高达94.8\%。最好的有97.29\%，最差的也有94.16\%。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{rsquared} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+             \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+             \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+         \PY{p}{)}
+         \PY{n}{rsquared}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R square of Regression}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{rsquared}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{rsquared}
+         \PY{n}{display}\PY{p}{(}\PY{n}{rsquared}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                             BP0       BP1       BP2       BP3       BP4
+R square of Regression                                                  
+ME0                     0.932553  0.969457  0.965867  0.965743  0.960922
+ME1                     0.941684  0.964263  0.968883  0.960963  0.964629
+ME2                     0.905969  0.944476  0.948719  0.956993  0.965179
+ME3                     0.925854  0.942757  0.954651  0.956172  0.949026
+ME4                     0.866619  0.936654  0.938558  0.941882  0.972901
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{rsquared}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{5}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 0.9480548778434097
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{rsquared}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} 0.9729007171282669
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n+nb}{min}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{rsquared}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 0.941683652490355
+\end{Verbatim}
+            
+    \subsection{}\label{ux56e0ux5b50ux4feeux6b63ux540eux7684r2}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{rsquared\PYZus{}adj} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+             \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+             \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+         \PY{p}{)}
+         \PY{n}{rsquared\PYZus{}adj}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Adjusted R square of Regression}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{rsquared\PYZus{}adj}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{rsquared\PYZus{}adj}
+         \PY{n}{display}\PY{p}{(}\PY{n}{rsquared\PYZus{}adj}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                                      BP0       BP1       BP2       BP3  \
+Adjusted R square of Regression                                           
+ME0                              0.928972  0.967835  0.964055  0.963924   
+ME1                              0.938587  0.962365  0.967231   0.95889   
+ME2                              0.900976  0.941528  0.945996   0.95471   
+ME3                              0.921917  0.939718  0.952243  0.953845   
+ME4                              0.859537  0.933291  0.935296  0.938796   
+
+                                      BP4  
+Adjusted R square of Regression            
+ME0                              0.958847  
+ME1                               0.96275  
+ME2                               0.96333  
+ME3                              0.946319  
+ME4                              0.971462  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{rsquared\PYZus{}adj}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{5}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} 0.9452967297642989
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{rsquared\PYZus{}adj}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} 0.9714618171527766
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n+nb}{min}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{rsquared\PYZus{}adj}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} 0.9385872092597544
+\end{Verbatim}
+            
+    \subsection{回归报告}\label{ux56deux5f52ux62a5ux544a}
+
+取其中一个被解释变量展示回归结果。可以看到，除了动量因子以外的所有银子，在统计上都是显著的(t\textgreater{}2)。JB检验和DW检验的效果也十分好。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME4BP4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.973
+Model:                            OLS   Adj. R-squared:                  0.971
+Method:                 Least Squares   F-statistic:                     676.1
+Date:                Wed, 19 Dec 2018   Prob (F-statistic):           4.62e-86
+Time:                        21:02:59   Log-Likelihood:                -218.18
+No. Observations:                 120   AIC:                             450.4
+Df Residuals:                     113   BIC:                             469.9
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          2.1620      0.489      4.418      0.000       1.192       3.132
+Market         0.9892      0.017     58.208      0.000       0.956       1.023
+SMB           -0.2995      0.033     -9.120      0.000      -0.365      -0.234
+HML            0.3112      0.046      6.821      0.000       0.221       0.402
+ROE           -0.2219      0.065     -3.421      0.001      -0.350      -0.093
+CMA           -0.1230      0.041     -2.979      0.004      -0.205      -0.041
+MOM            0.0329      0.020      1.648      0.102      -0.007       0.072
+==============================================================================
+Omnibus:                        2.318   Durbin-Watson:                   2.234
+Prob(Omnibus):                  0.314   Jarque-Bera (JB):                2.018
+Skew:                           0.083   Prob(JB):                        0.365
+Kurtosis:                       3.613   Cond. No.                         77.8
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \subsection{因子回归图}\label{ux56e0ux5b50ux56deux5f52ux56fe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{graphics}\PY{o}{.}\PY{n}{plot\PYZus{}partregress\PYZus{}grid}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{n}{fig} \PY{o}{=} \PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \newpage
+    \begin{center}
+        \heiti \zihao{3}总结
+    \end{center}
+    \par \indent
+    \heiti  经过研究，在2007年1月1日到2017年12月31日所有A股除去ST和非政策交易股票的数据集中，我们发现 HML 和 SMB、ROE 和 SMB 等因子间的相关性在 研究期间比较高，从整体上来看，通过$R^2$观察统计模型对数据的解释性，可以看到模型的解释性良好，在不同被解释变量中的$R^2$ 平均值高达94.8\%。最好的有97.29\%，最差的也有94.16\%。调整 $R^2$ 也较为理想，平均可以达到 94.53\%，除去动量因子意外其 他因子的 t 检验均显著，特别是 Market 和 SMB 因子，JB检验和DW检验的效果也十分好。但在不同的 25 个组合中 $\beta$ 和 SMB 相差较 大。    \\
+
+    
+    \newpage
+    \begin{center}
+        \heiti \zihao{2}参考文献
+    \end{center}
+
+    \noindent $[1]$Common Risk Factors in The Returns On Stocks and Bonds, Eugene F. Fama a \& Kenneth R. French, Journal of Financial Economics 33 (1993) 3-56. North-Holland.\\
+    $[2]$On Persistence in Mutual Fund Performances, Carhart, The Journey of Finance, NO.1, March 1997.\\
+    $[3]$A Five-Factor Asset Pricing Model, Eugene F. Fama a \& Kenneth R. French, Journal of Financial Economics 116 (2015) 1–22.\\
+    $[4]$Anomalies in Chinese A Shares, Jason Hsu \& Vivek Viswanathan \& Michael Wang \& Phillip Wool.\\
+    $[5]$Size, Value, and Momentum in International Stock Returns, Fama\& Eugene F.\& Kenneth R. French., Journal of Financial Economics 105, no. 3 (2012): 457-472.\\
+    $[6]$International Tests of A Five-Factor Asset Pricing Model, Fama\& Eugene F.\& Kenneth R. French. \\
+    $[7]$Profitability, Investment and Average Returns, Fama \& Eugene F.\& Kenneth R. French., Journal of Financial Economics 82, no. 3 (2006): 491-518.\\
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\begin{center}
+    \heiti \zihao{2} 数据处理部分代码(Python)
+\end{center}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+    {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}             
+        PY{k+kn}{import} \PY{n+nn}{datetime} \PY{k}{as} \PY{n+nn}{dt}           
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}         
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}    
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt} 
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+                     
+        \PY{k+kn}{import} \PY{n+nn}{WindPy} \PY{k}{as} \PY{n+nn}{w}              
+        \PY{k+kn}{from} \PY{n+nn}{WindPy} \PY{k}{import} \PY{o}{*}            
+        \PY{n}{w}\PY{o}{.}\PY{n}{start}\PY{p}{(}\PY{p}{)}
+            
+        \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+        \PY{n}{start} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008\PYZhy{}01\PYZhy{}01}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{end} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2017\PYZhy{}12\PYZhy{}31}\PY{l+s+s2}{\PYZdq{}}
+        
+        \PY{k}{def} \PY{n+nf}{months\PYZus{}list}\PY{p}{(}\PY{n}{start} \PY{o}{=} \PY{n}{start}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{n}{end}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        start: 开始日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{        end: 结束日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        样本期的月份列表。(string list)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{file\PYZus{}path} \PY{o}{=} \PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/months.csv}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{if} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}\PY{p}{:}
+                \PY{n}{months} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}
+                    \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{:}\PY{p}{]}
+                \PY{n}{months\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{months}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{months\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{months\PYZus{}list}\PY{p}{]} 
+                \PY{k}{else}\PY{p}{:}
+                \PY{n}{months} \PY{o}{=} \PY{n}{w}\PY{o}{.}\PY{n}{tdays}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Period=M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{usedf} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{months}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{months}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}
+                \PY{n}{months\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{months}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{months\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{months\PYZus{}list}\PY{p}{]} 
+            \PY{k}{return} \PY{n}{months\PYZus{}list}
+            
+        \PY{n}{months\PYZus{}list} \PY{o}{=} \PY{n}{months\PYZus{}list}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{market}\PY{p}{(}
+            \PY{n}{start} \PY{o}{=} \PY{n}{start}\PY{p}{,} 
+            \PY{n}{end} \PY{o}{=} \PY{n}{end}\PY{p}{,} 
+            \PY{n}{hs300} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} 
+            \PY{n}{windA} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} 
+        \PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        start: 开始日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{        end: 结束日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{        hs300: 是否用沪深300代表市场指数。(bool)}
+        \PY{l+s+sd}{        windA: 用万德全A代表市场指数。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        市场指数在样本期内的表现。(pd.DataFrame)}
+        \PY{l+s+sd}{        index: Month, 日期(YYYY\PYZhy{}MM\PYZhy{}DD)。(string)}
+        \PY{l+s+sd}{        column: Market, 当月涨跌幅（\PYZpc{}）。(float)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{file\PYZus{}path} \PY{o}{=} \PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/market.csv}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{if} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}\PY{p}{:}
+                \PY{n}{market} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}
+                    \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{:}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{if} \PY{n}{hs300}\PY{p}{:}
+                    \PY{n}{market\PYZus{}code} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{000300.SH}\PY{l+s+s2}{\PYZdq{}}
+                \PY{k}{elif} \PY{n}{windA}\PY{p}{:}
+                    \PY{n}{market\PYZus{}code} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{881001.WI}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{market} \PY{o}{=} \PY{n}{w}\PY{o}{.}\PY{n}{wsd}\PY{p}{(}
+                    \PY{n}{market\PYZus{}code}\PY{p}{,} 
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pct\PYZus{}chg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{start}\PY{p}{,} 
+                    \PY{n}{end}\PY{p}{,} 
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Period=M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{usedf} \PY{o}{=} \PY{k+kc}{True}
+                \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{market}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{market}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{market}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{market}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{market}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} 剔除缺失值}
+                \PY{n}{market}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}
+            \PY{k}{return} \PY{n}{market}
+            
+        \PY{n}{market} \PY{o}{=} \PY{n}{market}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{shibor}\PY{p}{(}\PY{n}{start} \PY{o}{=} \PY{n}{start}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{n}{end}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        start: 开始日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{        end: 结束日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        无风险利率，以SHIBOR隔夜利率的月平均值代表。(pd.DataFrame)}
+        \PY{l+s+sd}{        index: Month, 日期(YYYY\PYZhy{}MM\PYZhy{}DD)。(pd.datetime)}
+        \PY{l+s+sd}{        column: Shibor, 当月涨跌幅（\PYZpc{}）。(float)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{file\PYZus{}path} \PY{o}{=} \PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/shibor.csv}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{if} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}\PY{p}{:}
+                \PY{n}{shibor} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}
+                    \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{:}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{shibor} \PY{o}{=} \PY{n}{w}\PY{o}{.}\PY{n}{wsd}\PY{p}{(}
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SHIBORON.IR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{close}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{start}\PY{p}{,} 
+                    \PY{n}{end}\PY{p}{,} 
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{usedf} \PY{o}{=} \PY{k+kc}{True}
+                \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{shibor}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{shibor}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{shibor} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{shibor}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{shibor}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CLOSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} 
+                \PY{n}{shibor}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{shibor}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{shibor}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} 剔除缺失值}
+                \PY{n}{shibor}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}
+            \PY{k}{return} \PY{n}{shibor}
+            
+        \PY{n}{shibor} \PY{o}{=} \PY{n}{shibor}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{all\PYZus{}data}\PY{p}{(}
+            \PY{n}{start} \PY{o}{=} \PY{n}{start}\PY{p}{,} 
+            \PY{n}{end} \PY{o}{=} \PY{n}{end}\PY{p}{,} 
+            \PY{n}{universe} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{n}{trading\PYZus{}only} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} 
+            \PY{n}{non\PYZus{}ST\PYZus{}only} \PY{o}{=} \PY{k+kc}{True}
+        \PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        start: 开始日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{        end: 结束日期(\PYZdq{}YYYY\PYZhy{}MM\PYZhy{}DD\PYZdq{})。(str)}
+        \PY{l+s+sd}{        universe: 股票池，沪深300(\PYZsq{}hs300\PYZsq{})或全部A股(\PYZsq{}A\PYZsq{})。(str)}
+        \PY{l+s+sd}{        trading\PYZus{}only: 是否只保留正常交易的股票。(bool)}
+        \PY{l+s+sd}{        non\PYZus{}ST\PYZus{}only: 是否只保留非ST股票。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        指定样本期的全部数据。(pd.DataFrame)}
+        \PY{l+s+sd}{        index: Month, 日期(YYYY\PYZhy{}MM)。(str)}
+        \PY{l+s+sd}{        columns:}
+        \PY{l+s+sd}{            Code, 股票代码。(str)}
+        \PY{l+s+sd}{            Name, 股票简称。(str)}
+        \PY{l+s+sd}{            Return, 当月涨跌幅（\PYZpc{}）。(float)}
+        \PY{l+s+sd}{            ME, 当月总市值。(float)}
+        \PY{l+s+sd}{            Book, 当月账面价值。(float)}
+        \PY{l+s+sd}{            Price, 当月股价。(float)}
+        \PY{l+s+sd}{            BP, 当月账面市值比。(float)}
+        \PY{l+s+sd}{            Asset, 当月账面价值。(float)}
+        \PY{l+s+sd}{            ROE, 权益回报。(float)}
+        \PY{l+s+sd}{            ST, 是否为ST股票。(str)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+                
+            \PY{n}{file\PYZus{}path} \PY{o}{=} \PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/data.csv}\PY{l+s+s2}{\PYZdq{}}
+            
+            \PY{k}{if} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}
+                    \PY{n+nb}{open}\PY{p}{(}
+                        \PY{n}{file\PYZus{}path}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{encoding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{p}{)}\PY{p}{,} 
+                    \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{p}{)}
+                \PY{k}{if} \PY{n}{trading\PYZus{}only}\PY{p}{:}
+                    \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} 剔除缺失值}
+                \PY{k}{if} \PY{n}{non\PYZus{}ST\PYZus{}only}\PY{p}{:}
+                    \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ST}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{否}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} 剔除ST股票}
+                \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{str}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+                \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{k}{else}\PY{p}{:}
+            
+                \PY{k}{if} \PY{n}{universe} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs300}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                    \PY{n}{stocks\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{w}\PY{o}{.}\PY{n}{wset}\PY{p}{(}
+                        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sectorconstituent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date=}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{end}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;windcode=000300.SH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{usedf} \PY{o}{=} \PY{k+kc}{True}
+                    \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} \PYZdq{}.sample(100)\PYZdq{} 仅测试用}
+                        
+                \PY{k}{elif} \PY{n}{universe} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                    \PY{n}{stocks\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}
+                        \PY{n}{w}\PY{o}{.}\PY{n}{wset}\PY{p}{(}
+                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sectorconstituent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date=}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{end}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;sectorid=a001010100000000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                            \PY{n}{usedf} \PY{o}{=} \PY{k+kc}{True}
+                        \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} \PYZdq{}.sample(100)\PYZdq{} 仅测试用}
+                    \PY{p}{)}
+        
+                \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+            
+                \PY{k}{for} \PY{n}{stock} \PY{o+ow}{in} \PY{n}{stocks\PYZus{}list}\PY{p}{:}
+                    \PY{n}{stock\PYZus{}data} \PY{o}{=} \PY{n}{w}\PY{o}{.}\PY{n}{wsd}\PY{p}{(}
+                        \PY{n}{stock}\PY{p}{,} 
+                        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}trade\PYZus{}code,pct\PYZus{}chg,ev,roe,yoyassets,trade\PYZus{}status}
+        \PY{l+s+sd}{                ,riskwarning\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{start}\PY{p}{,} 
+                        \PY{n}{end}\PY{p}{,} 
+                        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}unit=1;ruleType=3;period=2;returnType=1;index=000001.SH;}
+        \PY{l+s+sd}{                Period=M;Fill=Previous\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{usedf} \PY{o}{=} \PY{k+kc}{True}
+                    \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                    \PY{n}{stock\PYZus{}data}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{stock\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PYZbs{}
+                                            \PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                    \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{stock\PYZus{}data}\PY{p}{)}
+            
+                \PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{data}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ST}\PY{l+s+s2}{\PYZdq{}}
+                \PY{p}{]}
+            
+                \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}
+                    
+            \PY{k}{return} \PY{n}{data}
+            
+        \PY{n}{data} \PY{o}{=} \PY{n}{all\PYZus{}data}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{excess}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        data: 要操作的数据表。(pd.DataFrame)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        添加了无风险利率和超额收益列的原数据表。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{col\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{shibor}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+            \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{col\PYZus{}list}\PY{p}{:}
+                \PY{n}{data}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{k}{return} \PY{n}{data}\PY{p}{[}\PY{n}{col\PYZus{}list}\PY{p}{]}
+            
+        \PY{k}{def} \PY{n+nf}{value\PYZus{}weighted\PYZus{}data}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        data: 要操作的数据表。(pd.DataFrame)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        将Return列替换为按ME列（市值）加权后的Return。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{total\PYZus{}ME} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weight}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{n}{total\PYZus{}ME}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{*} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weight}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{k}{return} \PY{n}{data}
+            
+        \PY{k}{def} \PY{n+nf}{monthly\PYZus{}return}\PY{p}{(}\PY{n}{factor}\PY{p}{,} \PY{n}{value\PYZus{}weighted} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        factor: 因子指标名。(str)}
+        \PY{l+s+sd}{        value\PYZus{}weighted: 是否将收益市值加权。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        每个月按照因子排列的大小投资组合的收益。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{small\PYZus{}ret\PYZus{}list}\PY{p}{,} \PY{n}{big\PYZus{}ret\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{month}\PY{p}{,} \PY{n}{monthly\PYZus{}data} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{:}
+                \PY{n}{sort} \PY{o}{=} \PY{n}{monthly\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{n}{factor}\PY{p}{)}
+                \PY{n}{small} \PY{o}{=} \PY{n}{sort}\PY{p}{[}\PY{p}{:}\PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{monthly\PYZus{}data}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{]}
+                \PY{n}{big} \PY{o}{=} \PY{n}{sort}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{monthly\PYZus{}data}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}\PY{p}{]}
+                \PY{k}{if} \PY{n}{value\PYZus{}weighted}\PY{p}{:}
+                    \PY{n}{small\PYZus{}ret} \PY{o}{=} \PY{n}{value\PYZus{}weighted\PYZus{}data}\PY{p}{(}\PY{n}{small}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                    \PY{n}{big\PYZus{}ret} \PY{o}{=} \PY{n}{value\PYZus{}weighted\PYZus{}data}\PY{p}{(}\PY{n}{big}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{small\PYZus{}ret} \PY{o}{=} \PY{n}{small}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{small}\PY{p}{)}
+                    \PY{n}{big\PYZus{}ret} \PY{o}{=} \PY{n}{big}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{big}\PY{p}{)}
+                \PY{n}{small\PYZus{}ret\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{small\PYZus{}ret}\PY{p}{)}
+                \PY{n}{big\PYZus{}ret\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{big\PYZus{}ret}\PY{p}{)}
+            \PY{n}{monthly\PYZus{}return} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{n}{months\PYZus{}list}\PY{p}{)}
+            \PY{n}{monthly\PYZus{}return}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Small }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{factor}\PY{p}{]} \PY{o}{=} \PY{n}{small\PYZus{}ret\PYZus{}list}
+            \PY{n}{monthly\PYZus{}return}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Big }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{factor}\PY{p}{]} \PY{o}{=} \PY{n}{big\PYZus{}ret\PYZus{}list}
+            \PY{k}{return} \PY{n}{monthly\PYZus{}return}
+            
+        \PY{k}{def} \PY{n+nf}{MKT}\PY{p}{(}\PY{n}{excess\PYZus{}return} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        excess\PYZus{}return: 是否计算超额收益。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        指定 Fama French 三因素模型的市场因子。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{MKT} \PY{o}{=} \PY{n}{market}
+            \PY{n}{MKT}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MKT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{k}{if} \PY{n}{excess\PYZus{}return}\PY{p}{:}
+                \PY{n}{MKT} \PY{o}{=} \PY{n}{excess}\PY{p}{(}\PY{n}{MKT}\PY{p}{)}
+            \PY{k}{return} \PY{n}{MKT}
+            
+        \PY{n}{MKT} \PY{o}{=} \PY{n}{MKT}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{SMB}\PY{p}{(}\PY{n}{excess\PYZus{}return} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        excess\PYZus{}return: 是否计算超额收益。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        指定 Fama French 三因素模型中的HML因子。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{data} \PY{o}{=} \PY{n}{monthly\PYZus{}return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Small ME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Big ME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{k}{if} \PY{n}{excess\PYZus{}return}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{excess}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{k}{return} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+            
+        \PY{n}{SMB} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/SMB.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            
+        \PY{n}{SMB}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{HML}\PY{p}{(}\PY{n}{excess\PYZus{}return} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        excess\PYZus{}return: 是否计算超额收益。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        指定 Fama French 三因素模型中的HML因子。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{data} \PY{o}{=} \PY{n}{monthly\PYZus{}return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Big BP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Small BP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{k}{if} \PY{n}{excess\PYZus{}return}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{excess}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{k}{return} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+            
+        \PY{n}{HML} \PY{o}{=} \PY{n}{HML}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{ROE}\PY{p}{(}\PY{n}{excess\PYZus{}return} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        excess\PYZus{}return: 是否计算超额收益。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        指定 Fama French 模型中的 ROE 因子。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{data} \PY{o}{=} \PY{n}{monthly\PYZus{}return}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Big ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Small ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+            \PY{k}{if} \PY{n}{excess\PYZus{}return}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{excess}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{k}{return} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+            
+        \PY{n}{ROE} \PY{o}{=} \PY{n}{ROE}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{CMA}\PY{p}{(}\PY{n}{excess\PYZus{}return} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        excess\PYZus{}return: 是否计算超额收益。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        指定 Fama French 模型中的 CMA 因子。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{data} \PY{o}{=} \PY{n}{monthly\PYZus{}return}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Big Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Small Asset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+            \PY{k}{if} \PY{n}{excess\PYZus{}return}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{excess}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{k}{return} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+            
+        \PY{n}{CMA} \PY{o}{=} \PY{n}{CMA}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{MOM}\PY{p}{(}\PY{n}{excess\PYZus{}return} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        excess\PYZus{}return: 是否计算超额收益。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        指定 Fama French 模型中的 MOM 因子。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{data} \PY{o}{=} \PY{n}{monthly\PYZus{}return}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Big Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Small Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+            \PY{k}{if} \PY{n}{excess\PYZus{}return}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{excess}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{k}{return} \PY{n}{data} \PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+            
+        \PY{n}{MOM} \PY{o}{=} \PY{n}{MOM}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{Y}\PY{p}{(}\PY{n}{excess\PYZus{}return} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    参数：}
+        \PY{l+s+sd}{        excess\PYZus{}return: 是否计算超额收益。(bool)}
+        \PY{l+s+sd}{    返回：}
+        \PY{l+s+sd}{        被解释变量。(pd.DataFrame)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{Y} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{Y}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{month}\PY{p}{,} \PY{n}{monthly\PYZus{}data} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{:}
+                \PY{n}{sort\PYZus{}ME} \PY{o}{=} \PY{n}{monthly\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{sort\PYZus{}BP\PYZus{}ME} \PY{o}{=} \PY{n}{monthly\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{length} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{monthly\PYZus{}data}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{ME\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sort\PYZus{}ME}\PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{n}{length}\PY{p}{:}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{length}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+                        \PY{n}{BP\PYZus{}ME\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sort\PYZus{}BP\PYZus{}ME}\PY{p}{[}\PY{n}{j}\PY{o}{*}\PY{n}{length}\PY{p}{:}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{length}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+                        \PY{n}{stock\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{ME\PYZus{}list} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{n}{BP\PYZus{}ME\PYZus{}list}\PY{p}{]}
+                        \PY{n}{portfolio} \PY{o}{=} \PY{n}{monthly\PYZus{}data}\PY{p}{[}\PY{n}{monthly\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PYZbs{}
+                                                             \PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{stock\PYZus{}list}\PY{p}{)}\PY{p}{]}
+                        \PY{n}{portfolio\PYZus{}ret} \PY{o}{=} \PY{n}{value\PYZus{}weighted\PYZus{}data}\PY{p}{(}\PY{n}{portfolio}\PY{p}{)}\PYZbs{}
+                                                    \PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                        \PY{n}{Y}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{portfolio\PYZus{}ret}\PY{p}{)}
+            \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{months\PYZus{}list}\PY{p}{)}
+            
+        \PY{n}{Y} \PY{o}{=} \PY{n}{Y}\PY{p}{(}\PY{p}{)}
+            
+        \PY{n}{FamaFrench} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+        \PY{n}{FamaFrench}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{shibor}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{FamaFrench}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{MKT}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MKT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}FamaFrench[\PYZdq{}SMB\PYZdq{}] = SMB[\PYZdq{}SMB\PYZdq{}]}
+        \PY{n}{FamaFrench}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{HML}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{FamaFrench}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ROE}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{FamaFrench}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{CMA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{FamaFrench}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{MOM}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{FamaFrench} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+            \PY{p}{[}\PY{n}{FamaFrench}\PY{p}{,} \PY{n}{Y}\PY{p}{]}\PY{p}{,} 
+            \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} 
+            \PY{n}{sort} \PY{o}{=} \PY{k+kc}{False}
+        \PY{p}{)}
+            
+        \PY{n}{FamaFrench}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/FamaFrench.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+            
+        \PY{n}{FamaFrench} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}
+            \PY{n+nb}{open}\PY{p}{(}
+                \PY{n}{path} \PY{o}{+} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/FamaFrench.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                \PY{n}{encoding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}
+            \PY{p}{)}\PY{p}{,} 
+            \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{p}{)}
+    \end{Verbatim}
+    
+
+
+    \newpage
+    \begin{center}
+        \heiti \zihao{2} 数据分析部分代码(Python)
+    \end{center}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+            \PY{k+kn}{import} \PY{n+nn}{os}
+            \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+            \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+            \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{as} \PY{n+nn}{ticker}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{font.size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{11}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+            \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+            \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+            \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+                
+            \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+                
+            \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}
+                \PY{n+nb}{open}\PY{p}{(}
+                    \PY{n}{path} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{FamaFrench.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{encoding} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}
+                \PY{p}{)}\PY{p}{,} 
+                \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{p}{)}
+            \PY{n}{data}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n+nb}{format} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+                
+            \PY{c+c1}{\PYZsh{} 收益率}
+            \PY{c+c1}{\PYZsh{} 可以看到，动量因子的收益率远高于其它因子，尤其是在2015年中。}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{MultipleLocator}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{MultipleLocator}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{70}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shibor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return(}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Return of Factors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                
+                
+            \PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+                
+                
+            \PY{c+c1}{\PYZsh{} 统计报告}
+                
+            \PY{c+c1}{\PYZsh{} 因子间相关性}
+                
+                
+            \PY{n}{factors} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+            \PY{n}{correlation} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{n}{factors}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{factors}\PY{p}{)}
+            \PY{k}{for} \PY{n}{factor\PYZus{}x} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+                \PY{k}{for} \PY{n}{factor\PYZus{}y} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+                    \PY{n}{correlation}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{factor\PYZus{}x}\PY{p}{,} \PY{n}{factor\PYZus{}y}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}
+                        \PY{n}{data}\PY{p}{[}\PY{n}{factor\PYZus{}x}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{factor\PYZus{}y}\PY{p}{]}
+                    \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{correlation}
+                
+            \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+                
+                
+            \PY{c+c1}{\PYZsh{} 因子参数 }
+            \PY{c+c1}{\PYZsh{} 其中系数相对较大的有 \PYZdl{}\PYZbs{}beta\PYZdl{} 和SMB。}
+                
+            \PY{k}{for} \PY{n}{factor} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+                \PY{n}{parameters} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+                    \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+                \PY{p}{)}
+                \PY{n}{parameters}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Parameters of }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{factor}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                        \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                        \PY{n}{parameters}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{factor}\PY{p}{]}
+                \PY{n}{display}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}
+                
+                
+            \PY{k}{for} \PY{n}{factor} \PY{o+ow}{in} \PY{n}{factors}\PY{p}{:}
+                \PY{n}{tvalues} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+                    \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+                \PY{p}{)}
+                \PY{n}{tvalues}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t values of }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{factor}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                        \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                        \PY{n}{tvalues}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{tvalues}\PY{p}{[}\PY{n}{factor}\PY{p}{]}
+                \PY{n}{display}\PY{p}{(}\PY{n}{tvalues}\PY{p}{)}
+                
+                
+                
+            \PY{n}{rsquared} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+                \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+            \PY{p}{)}
+            \PY{n}{rsquared}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R square of Regression}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                    \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{rsquared}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{rsquared}
+            \PY{n}{display}\PY{p}{(}\PY{n}{rsquared}\PY{p}{)}                
+            
+            \PY{n}{rsquared\PYZus{}adj} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+                \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+            \PY{p}{)}
+            \PY{n}{rsquared\PYZus{}adj}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Adjusted R square of Regression}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BP}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                    \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{rsquared\PYZus{}adj}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{rsquared\PYZus{}adj}
+            \PY{n}{display}\PY{p}{(}\PY{n}{rsquared\PYZus{}adj}\PY{p}{)}
+                
+            \PY{c+c1}{\PYZsh{} 回归报告}
+            \PY{c+c1}{\PYZsh{} 取其中一个被解释变量展示回归结果。}
+                
+                
+            \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ME4BP0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Market}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SMB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CMA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MOM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+            \PY{n}{x} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}                
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                
+            \PY{c+c1}{\PYZsh{} 因子回归图}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{graphics}\PY{o}{.}\PY{n}{plot\PYZus{}partregress\PYZus{}grid}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{n}{fig} \PY{o}{=} \PY{n}{fig}\PY{p}{)}
+    \end{Verbatim}
+        
+
+
+        
+    \end{document}
